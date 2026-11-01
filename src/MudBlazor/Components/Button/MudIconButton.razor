@@ -1,0 +1,24 @@
+﻿@namespace MudBlazor
+@inherits MudBaseButton
+
+@{
+    OpenRoot(__builder, Classname);
+    RenderLabel(__builder);
+    __builder.CloseElement();
+}
+
+@code {
+    private void RenderLabel(RenderTreeBuilder __builder)
+    {
+        @if (!string.IsNullOrEmpty(Icon))
+        {
+            <span class="mud-icon-button-label">
+                <MudIcon Disabled="@Disabled" Icon="@Icon" Size="@Size" />
+            </span>
+        }
+        else
+        {
+            <MudText Typo="Typo.body2" Color="Color.Inherit">@ChildContent</MudText>
+        }
+    }
+}

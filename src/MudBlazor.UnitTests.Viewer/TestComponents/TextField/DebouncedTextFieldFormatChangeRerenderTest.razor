@@ -1,0 +1,41 @@
+<MudTextField T="DateTime"
+              @bind-Value="@Date"
+              Format="@Format"
+              Immediate="@true"
+              DebounceInterval="DebounceInterval"
+              Required="@true"
+              RequiredError="Enter a star"
+              Culture="System.Globalization.CultureInfo.InvariantCulture" />
+
+<MudText>
+    RenderCount: @_renderCount
+</MudText>
+
+<MudText>
+    Value: @Date.ToString(Format)
+</MudText>
+
+@code {
+    public static string __description__ = "Test user input retention on component refresh before debounce with changed format.";
+
+    private int _renderCount;
+
+    public int DebounceInterval => 500;
+
+    public DateTime Date { get; set; } = new(2023, 07, 12);
+
+    public string Format { get; set; } = "yyyy/MM/dd";
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        _renderCount++;
+
+        base.OnAfterRender(firstRender);
+    }
+
+    public void ApplyFormatChange()
+    {
+        Format = "dd/MM/yyyy";
+        StateHasChanged();
+    }
+}
